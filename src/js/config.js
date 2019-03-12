@@ -233,18 +233,91 @@ const config = {
         }
     },
 
+    // 上传视频参数-------------------
+
+    // 插入网络图片的校验
+    linkVideoCheck: function (src) {
+        // src 即图片的地址
+        return true // 返回 true 即表示成功
+        // return '校验失败'  // 返回字符串即表示失败的提示信息
+    },
+
+    // 默认上传视频 max size: 5M
+    uploadVideoMaxSize: 1024 * 1024 * 1024,
+
+    // 配置一次最多上传几个视频
+    // uploadVideoMaxLength: 5,
+
+    // 上传视频，是否显示 base64 格式
+    uploadVideoShowBase64: false,
+
+    // 上传视频，server 地址（如果有值，则 base64 格式的配置则失效）
+    // uploadVideoServer: '/upload',
+
+    // 自定义配置 filename
+    uploadFileName: '',
+
+    // 上传视频的自定义参数
+    uploadVideoParams: {
+        // token: 'abcdef12345'
+    },
+
+    // 上传视频的自定义header
+    uploadVideoHeaders: {
+        // 'Accept': 'text/x-json'
+    },
+
+    // 配置 XHR withCredentials
+    withCredentials: false,
+
+    // 自定义上传视频超时时间 ms
+    uploadVideoTimeout: 10000,
+
+    // 上传视频 hook 
+    uploadVideoHooks: {
+        // customInsert: function (insertLinkImg, result, editor) {
+        //     console.log('customInsert')
+        //     // 视频上传并返回结果，自定义插入视频的事件，而不是编辑器自动插入视频
+        //     const data = result.data1 || []
+        //     data.forEach(link => {
+        //         insertLinkImg(link)
+        //     })
+        // },
+        before: function (xhr, editor, files) {
+            // 视频上传之前触发
+
+            // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
+            // return {
+            //     prevent: true,
+            //     msg: '放弃上传'
+            // }
+        },
+        success: function (xhr, editor, result) {
+            // 视频上传并返回结果，视频插入成功之后触发
+        },
+        fail: function (xhr, editor, result) {
+            // 视频上传并返回结果，但视频插入错误时触发
+        },
+        error: function (xhr, editor) {
+            // 视频上传出错时触发
+        },
+        timeout: function (xhr, editor) {
+            // 视频上传超时时触发
+        }
+    },
+
     // 是否上传七牛云，默认为 false
     qiniu: false,
 
-    // 上传图片自定义提示方法
+    // 上传视频自定义提示方法
     // customAlert: function (info) {
     //     // 自定义上传提示
     // },
     
-    // // 自定义上传图片
+    // // 自定义上传视频
     // customUploadImg: function (files, insert) {
     //     // files 是 input 中选中的文件列表
-    //     // insert 是获取图片 url 后，插入到编辑器的方法
+    //     // insert 是获取视频 url 后，插入到编辑器的方法
     //     insert(imgUrl)
     // }
 }
